@@ -1,7 +1,8 @@
 import { useState } from "react";
-import api from '../api';
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
+import api from '../api';
+import "../styles/Form.css";
 
 const Form = ({ route, method }) => {
 
@@ -10,7 +11,7 @@ const Form = ({ route, method }) => {
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
-    const name = method === 'login' ? "Login" : "Logout";
+    const name = method === 'login' ? "Login" : "Register";
 
     const handleSubmit = async(e) => {
         setLoading(true);
