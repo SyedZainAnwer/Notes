@@ -8,7 +8,7 @@ const Home = () => {
     const [title, setTitle] = useState("");
 
     const getNotes = () => {
-        api.get("/api/notes/")
+        api.get("/api/note/")
         .then((res) => res.data)
         .then((data) => { 
             setNotes(data); 
@@ -18,7 +18,7 @@ const Home = () => {
     };
 
     const deleteNote = (id) => {
-        api.delete(`/api/notes/delete/${id}/`)
+        api.delete(`/api/note/delete/${id}/`)
         .then((res) => {
             if (res.status === 204) alert("Note deleted!");
             else alert("Failed to delete the note.");
@@ -31,7 +31,7 @@ const Home = () => {
 
     const createNote = (e) => {
         e.preventDefault();
-        api.post("api/notes/", {content, title})
+        api.post("api/note/", {content, title})
         .then((res) => {
             if (res.status === 201) alert("Note created!");
             else alert("Failed to make note.");
@@ -42,7 +42,40 @@ const Home = () => {
     }
 
     return(
-        <div></div>
+        <div>
+            <div>
+                <h2>Notes</h2>
+            </div>
+
+            <h2>Create a Notes</h2>
+            <form onSubmit={createNote}>
+                <label htmlFor="title">Title:</label>
+                <br />
+
+                <input 
+                    type="text" 
+                    id='title' 
+                    name='title' 
+                    required 
+                    value={title} 
+                    onChange={(e) => setTitle(e.target.value)} 
+                />
+                
+                <label htmlFor="content">Content:</label>
+                <br />
+                
+                <textarea 
+                    id='content' 
+                    name='content' 
+                    required 
+                    value={content} 
+                    onChange={(e) => setContent(e.target.value)} 
+                />
+                <br />
+
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
     )
 }
 
