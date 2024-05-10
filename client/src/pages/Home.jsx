@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from '../api';
+import Note from '../components/Note';
+import '../styles/Home.css'
 
 const Home = () => {
 
@@ -22,10 +24,10 @@ const Home = () => {
         .then((res) => {
             if (res.status === 204) alert("Note deleted!");
             else alert("Failed to delete the note.");
+            getNotes();
         })
         .catch((err) => alert(err));
 
-        getNotes()
     }
 
 
@@ -35,16 +37,23 @@ const Home = () => {
         .then((res) => {
             if (res.status === 201) alert("Note created!");
             else alert("Failed to make note.");
+            getNotes();
         })
         .catch((err) => alert(err));
 
-        getNotes();
     }
 
     return(
         <div>
             <div>
                 <h2>Notes</h2>
+                {notes.map((note) => 
+                    <Note 
+                        note={note} 
+                        onDelete={deleteNote} 
+                        key={note.id}
+                    />
+                )}
             </div>
 
             <h2>Create a Notes</h2>
